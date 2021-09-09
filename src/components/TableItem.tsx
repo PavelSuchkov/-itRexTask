@@ -6,13 +6,7 @@ type TableItemPropsType = {
     lastName: string
     email: string
     phone: string
-    address: {
-        state: string
-        streetAddress: string
-        city: string
-        zip: string
-        description: string
-    }
+    state: string
 }
 
 export const TableItem = (props: TableItemPropsType) => {
@@ -24,7 +18,7 @@ export const TableItem = (props: TableItemPropsType) => {
             <td>{props.lastName}</td>
             <td>{props.email}</td>
             <td>{props.phone}</td>
-            <td>{props.address.state}</td>
+            <td>{props.state}</td>
         </tr>
     )
 }

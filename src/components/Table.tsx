@@ -46,10 +46,11 @@ export const Table = () => {
                 return <TableItem key={item.id}
                                   email={item.email}
                                   id={item.id}
-                                  address={item.address}
+                                  state={item.address.state}
                                   firstName={item.firstName}
                                   lastName={item.lastName}
-                                  phone={item.phone}/>
+                                  phone={item.phone}
+                />
             })}
 
 
