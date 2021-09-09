@@ -6,7 +6,7 @@ import {TableItem} from "./TableItem";
 
 
 export const Table = () => {
-    // @ts-ignore
+
     const usersData = useSelector<RootStateType, Array<UserType>>(state => state.users.users);
     const dispatch = useDispatch();
 
@@ -21,17 +21,14 @@ export const Table = () => {
 
     useEffect(() => {
         dispatch(requestUsers())
-    },[])
+    }, [])
 
     useEffect(() => {
         debugger
-         setUsers(usersData);
+        setUsers(usersData);
     }, [usersData])
 
     console.log(users)
-
-
-
 
 
     return <table>
@@ -45,10 +42,15 @@ export const Table = () => {
             <td><b>State</b></td>
         </tr>
         {
-           users.map((item) => {
-            return  <TableItem key={item.id} email={item.email} id={item.id}
-            address={item.address} firstName={item.firstName} lastName={item.lastName}
-            phone={item.phone}/> })}
+            users.map((item) => {
+                return <TableItem key={item.id}
+                                  email={item.email}
+                                  id={item.id}
+                                  address={item.address}
+                                  firstName={item.firstName}
+                                  lastName={item.lastName}
+                                  phone={item.phone}/>
+            })}
 
 
     </table>
