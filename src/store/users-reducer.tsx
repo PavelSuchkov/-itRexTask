@@ -9,14 +9,16 @@ export type UserType = {
     lastName: string
     email: string
     phone: string
-    address: {
+    adress: {
         state: string
         streetAddress: string
         city: string
         zip: string
         description: string
     }
-}
+} ;
+
+
 const initialState = {
     users: [{
         id: '',
@@ -24,7 +26,7 @@ const initialState = {
         lastName: '',
         email: '',
         phone: '',
-        address: {
+        adress: {
             state: '',
             streetAddress: '',
             city: '',
@@ -32,6 +34,20 @@ const initialState = {
             description: '',
         }
     }]
+    // selectedUser: {
+    //     id: '',
+    //     firstName: '',
+    //     lastName: '',
+    //     email: '',
+    //     phone: '',
+    //     adress: {
+    //         state: '',
+    //         streetAddress: '',
+    //         city: '',
+    //         zip: '',
+    //         description: '',
+    //     }
+    // }
 }
 // const initialState = [] as Array<UserType>
 
@@ -42,7 +58,6 @@ export const usersReducer = (state: InitialStateType = initialState, action: Act
     switch (action.type) {
 
         case "SET_USERS":
-            debugger
             return {...state, users: action.users}
 
 

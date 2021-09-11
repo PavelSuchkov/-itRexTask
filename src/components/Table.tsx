@@ -3,6 +3,8 @@ import {requestUsers, UserType} from "../store/users-reducer";
 import {useDispatch, useSelector} from "react-redux";
 import {RootStateType} from "../store/store";
 import {TableItem} from "./TableItem";
+import {TableHeader} from "./TableHeader";
+import {SelectedUser} from "./SelectedUser";
 
 
 export const Table = () => {
@@ -16,43 +18,52 @@ export const Table = () => {
     //     console.log(newUsers)
     // }
 
-    console.log('usersData is: ' + usersData)
-    const [users, setUsers] = useState<Array<UserType>>([])
+    // console.log('usersData is: ' + usersData)
+    const [users, setUsers] = useState<Array<UserType>>([]);
+    const [selectedUser, setSelectedUser] = useState<UserType | null>(null);
+
 
     useEffect(() => {
         dispatch(requestUsers())
     }, [])
 
     useEffect(() => {
-        debugger
         setUsers(usersData);
     }, [usersData])
 
     console.log(users)
 
 
+    const clickHandler = (id: number) => {
+        debugger
+        let foundedUser = users.find(u => u.id === id);
+        if (foundedUser) {
+            setSelectedUser(foundedUser)
+        }
+    }
     return <table>
-        <tr>
-            <td><b>id</b></td>
-            <br/>
-            <td><b>First name</b></td>
-            <td><b>Last name</b></td>
-            <td><b>Email</b></td>
-            <td><b>Phone</b></td>
-            <td><b>State</b></td>
-        </tr>
+
+        <TableHeader id={'ID'}
+                     firstName={'First Name'}
+                     lastName={'Last Name'}
+                     email={'Email'}
+                     phone={'Phone'}
+                     state={'State'}/>
         {
             users.map((item) => {
                 return <TableItem key={item.id}
                                   email={item.email}
                                   id={item.id}
-                                  state={item.address.state}
+                                  state={item.adress.state}
                                   firstName={item.firstName}
                                   lastName={item.lastName}
                                   phone={item.phone}
+                                  onClick={() => clickHandler(item.id)}
                 />
             })}
-
+        {!!selectedUser && <SelectedUser firstName={selectedUser.firstName}
+                                         lastName={selectedUser.lastName}
+                                         adress={selectedUser.adress}/>}
 
     </table>
 }
