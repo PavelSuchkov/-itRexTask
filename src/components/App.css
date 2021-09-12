@@ -1,0 +1,29 @@
+.table {
+    text-align: center;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+
+
+.table, .th, .td {
+    border: 1px solid black
+}
+.th, .td {
+    padding: 10px 20px;
+}
+.btn {
+    position: relative;
+}
+
+.btn::after {
+    content:"";
+    display: block;
+    background-image: url(./src/common/round_expand_more_black_24dp.png);
+    width: 24px;
+    height: 24px;
+
+    position: absolute;
+    top: -3px;
+    right: -18px;
+}

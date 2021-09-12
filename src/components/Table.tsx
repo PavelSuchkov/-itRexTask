@@ -21,6 +21,10 @@ import {RootStateType} from "../store/store";
 import {TableItem} from "./TableItem";
 import {TableHeader} from "./TableHeader";
 import {SelectedUser} from "./SelectedUser";
+import {inspect} from "util";
+import styles from '../App.module.css'
+import ReactPaginate from "react-paginate";
+import {Paginator} from "./Paginator/Paginator";
 // import {v1} from "uuid"
 
 
@@ -148,8 +152,10 @@ export const Table = () => {
         debugger
         dispatch(sortByStateWithSelect(e.currentTarget.value))
     }
-    return <table>
-
+    const onPageChanged = (pageNumber: number) => {
+        console.log('123')
+    }
+    return <table className={styles.table}>
         <div>
             <button onClick={idSort}>sort by ID</button>
             <button onClick={nameSort}>sort by Name</button>
@@ -192,6 +198,7 @@ export const Table = () => {
                                   onClick={() => clickHandler(item.id)}
                 />
             })}
+        <Paginator totalItemsCount={32} pageSize={20} currentPage={1} onPageChanged={onPageChanged}/>
         {!!selectedUser && <SelectedUser firstName={selectedUser.firstName}
                                          lastName={selectedUser.lastName}
                                          adress={selectedUser.adress}/>}

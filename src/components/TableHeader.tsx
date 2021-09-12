@@ -13,13 +13,13 @@ type TableItemPropsType = {
 export const TableHeader = (props: TableItemPropsType) => {
 
     return (
-        <tr >
-            <th>{props.id}</th>
-            <th>{props.firstName}</th>
-            <th>{props.lastName}</th>
-            <th>{props.email}</th>
-            <th>{props.phone}</th>
-            <th>{props.state}</th>
+        <tr>
+            <th className="btn" >{props.id}</th>
+            <th className="btn">{props.firstName}</th>
+            <th className="btn">{props.lastName}</th>
+            <th className="btn">{props.email}</th>
+            <th className="btn">{props.phone}</th>
+            <th className="btn">{props.state}</th>
             <br/>
         </tr>
     )

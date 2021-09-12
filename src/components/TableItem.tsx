@@ -1,5 +1,6 @@
 import {UserType} from "../store/users-reducer";
 import React from "react";
+import styles from '../App.module.css'
 
 type TableItemPropsType = {
     id: number
@@ -15,13 +16,13 @@ type TableItemPropsType = {
 export const TableItem = React.memo((props: TableItemPropsType) => {
 
     return (
-        <tr style={{border: '1px black'}} onClick={props.onClick}>
-            <td>{props.id}</td>
-            <td>{props.firstName}</td>
-            <td>{props.lastName}</td>
-            <td>{props.email}</td>
-            <td>{props.phone}</td>
-            <td>{props.state}</td>
+        <tr className={styles.tr} onClick={props.onClick}>
+            <td className={styles.td}>{props.id}</td>
+            <td className={styles.td}>{props.firstName}</td>
+            <td className={styles.td}>{props.lastName}</td>
+            <td className={styles.td}>{props.email}</td>
+            <td className={styles.td}>{props.phone}</td>
+            <td className={styles.td}>{props.state}</td>
             <br/>
         </tr>
     )
