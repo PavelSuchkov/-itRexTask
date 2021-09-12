@@ -35,7 +35,8 @@ const initialState = {
         }
     }],
     queryString: '',
-    searchResult : [] as Array<UserType>
+    searchResult : [] as Array<UserType>,
+    listOfStates: [] as Array<string>
     // selectedUser: {
     //     id: '',
     //     firstName: '',
@@ -91,12 +92,25 @@ export const usersReducer = (state: InitialStateType = initialState, action: Act
             return {...state, users: [...state.users.sort((a, b) => (a.adress.state.localeCompare(b.adress.state)))]}
         case "SORT_BY_STATE_REVERSE":
             return {...state, users: [...state.users.sort((a, b) => (a.adress.state.localeCompare(b.adress.state)))].reverse()}
+        case "SORT_BY_STATE_WITH_SELECT":
+            debugger
+            return {...state, listOfStates: [...state.listOfStates], users: [...state.users.filter(u => u.adress.state === action.option)]}
 
         case "SORT_BY_SEARCH_STRING":
-            debugger
             if(action.searchString !== '') {
                 return {...state, searchResult: [...state.users.filter((u) => u.firstName.toLowerCase().indexOf(action.searchString) !== -1)]}
             } else return {...state}
+
+        case "LIST_OF_STATES_CREATED":
+            let copyState = {...state}
+            let temp = [] as Array<string>
+            let stateList = copyState.users.map(u => u.adress.state)
+            for(let str of stateList) {
+                if (!temp.includes(str)){
+                    temp.push(str)
+                }
+            }
+            return {...copyState, listOfStates: temp}
 
         // case "RESET_SEARCH":
         //     return {...state, users: [...state.users.sort((a, b) => (a.adress.state.localeCompare(b.adress.state)))].reverse()}
@@ -120,8 +134,10 @@ type ActionsType = ReturnType<typeof setUsersAC>
                   | ReturnType<typeof sortByLastNameReverse>
                   | ReturnType<typeof sortByPhoneReverse>
                   | ReturnType<typeof sortByStateReverse>
+                  | ReturnType<typeof sortByStateWithSelect>
                   | ReturnType<typeof sortBySearchString>
                   | ReturnType<typeof resetSearch>
+                  | ReturnType<typeof listOfStatesCreated>
 
 export type ThunkType = ThunkAction<Promise<void>, RootStateType, unknown, ActionsType>
 
@@ -197,6 +213,12 @@ export const sortByStateReverse = () => {
         type: "SORT_BY_STATE_REVERSE"
     } as const
 }
+export const sortByStateWithSelect = (option: string) => {
+    return {
+        type: "SORT_BY_STATE_WITH_SELECT",
+        option
+    } as const
+}
 export const sortBySearchString = (searchString: string) => {
     return {
         type: "SORT_BY_SEARCH_STRING",
@@ -206,6 +228,12 @@ export const sortBySearchString = (searchString: string) => {
 export const resetSearch = () => {
     return {
         type: "RESET_SEARCH",
+    } as const
+}
+
+export const listOfStatesCreated = () => {
+    return {
+        type: "LIST_OF_STATES_CREATED",
     } as const
 }
 

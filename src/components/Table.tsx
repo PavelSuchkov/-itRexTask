@@ -1,5 +1,6 @@
-import React, {ChangeEvent, useEffect, useState} from "react";
+import React, {ChangeEvent, FormEvent, useEffect, useState} from "react";
 import {
+    listOfStatesCreated,
     requestUsers,
     sortByEmail,
     sortByEmailReverse,
@@ -12,7 +13,7 @@ import {
     sortByPhone,
     sortByPhoneReverse, sortBySearchString,
     sortByState,
-    sortByStateReverse,
+    sortByStateReverse, sortByStateWithSelect,
     UserType
 } from "../store/users-reducer";
 import {useDispatch, useSelector} from "react-redux";
@@ -27,21 +28,32 @@ export const Table = () => {
 
     const usersData = useSelector<RootStateType, Array<UserType>>(state => state.users.users);
     const searchResult = useSelector<RootStateType, Array<UserType>>(state => state.users.searchResult);
+    const statesList = useSelector<RootStateType, Array<string>>(state => state.users.listOfStates);
     const dispatch = useDispatch();
 
-
+    const [isSearchWorks, setIsSearchWorks] = useState(false);
     const [users, setUsers] = useState<Array<UserType>>([]);
     const [selectedUser, setSelectedUser] = useState<UserType | null>(null);
 
 
     useEffect(() => {
-        dispatch(requestUsers())
+        dispatch(requestUsers());
+
     }, [])
 
 
     useEffect(() => {
         setUsers(usersData);
-    }, [usersData])
+        dispatch(listOfStatesCreated());
+    }, [usersData, dispatch])
+
+    useEffect(() => {
+        if(isSearchWorks) {
+            setUsers(searchResult)
+        } else {
+            setUsers(usersData)
+        }
+    }, [searchResult, isSearchWorks])
 
 
     const clickHandler = (id: number) => {
@@ -124,7 +136,17 @@ export const Table = () => {
             dispatch(requestUsers())
         } else {
             dispatch(sortBySearchString(searchString))
+            setIsSearchWorks(true)
         }
+    }
+
+    const resetSearchButtonClick = () => {
+        setIsSearchWorks(false);
+        setSearchString('')
+    }
+    const onSelectChangeHandler = (e: ChangeEvent<HTMLSelectElement>) => {
+        debugger
+        dispatch(sortByStateWithSelect(e.currentTarget.value))
     }
     return <table>
 
@@ -141,6 +163,15 @@ export const Table = () => {
             <input type="text" placeholder={'Search by name'} value={searchString}
                    onChange={(e) => onChangeHandler(e)}/>
             <button onClick={searchButtonClick}>Search</button>
+            <button onClick={resetSearchButtonClick}>Reset Search</button>
+
+            <select name="states" onChange={(e) =>
+            {onSelectChangeHandler(e)}} >
+                <option value={'select the state'} >select the state</option>
+                {statesList.map(s => {
+                    return <option id={s} value={s}>{s}</option>
+                })}
+            </select>
         </div>
 
         <TableHeader id={'ID'}
