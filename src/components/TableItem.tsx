@@ -1,4 +1,5 @@
 import {UserType} from "../store/users-reducer";
+import React from "react";
 
 type TableItemPropsType = {
     id: number
@@ -11,7 +12,7 @@ type TableItemPropsType = {
     onClick: ( ) => void
 }
 
-export const TableItem = (props: TableItemPropsType) => {
+export const TableItem = React.memo((props: TableItemPropsType) => {
 
     return (
         <tr style={{border: '1px black'}} onClick={props.onClick}>
@@ -24,4 +25,4 @@ export const TableItem = (props: TableItemPropsType) => {
             <br/>
         </tr>
     )
-}
+})
