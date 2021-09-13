@@ -1,5 +1,6 @@
 import React, {ChangeEvent, useEffect, useState} from "react";
 import {
+    displayListCreated,
     listOfStatesCreated,
     requestUsers,
     sortByEmail,
@@ -33,6 +34,7 @@ export const Table = () => {
     const usersData = useSelector<RootStateType, Array<UserType>>(state => state.users.users);
     const searchResult = useSelector<RootStateType, Array<UserType>>(state => state.users.searchResult);
     const statesList = useSelector<RootStateType, Array<string>>(state => state.users.listOfStates);
+    const displayList = useSelector<RootStateType, Array<UserType>>(state => state.users.displayList);
     const dispatch = useDispatch();
 
     const [isSearchWorks, setIsSearchWorks] = useState(false);
@@ -42,14 +44,14 @@ export const Table = () => {
 
     useEffect(() => {
         dispatch(requestUsers());
-
     }, [])
 
 
     useEffect(() => {
         setUsers(usersData);
+        dispatch(displayListCreated());
         dispatch(listOfStatesCreated());
-    }, [usersData, dispatch])
+    }, [usersData])
 
     useEffect(() => {
         if(isSearchWorks) {
@@ -148,9 +150,12 @@ export const Table = () => {
         setIsSearchWorks(false);
         setSearchString('')
     }
+
+
     const onSelectChangeHandler = (e: ChangeEvent<HTMLSelectElement>) => {
-        debugger
-        dispatch(sortByStateWithSelect(e.currentTarget.value))
+
+        dispatch(sortByStateWithSelect(e.currentTarget.value));
+        setSelectedUser(null);
     }
     const onPageChanged = (pageNumber: number) => {
         console.log('123')

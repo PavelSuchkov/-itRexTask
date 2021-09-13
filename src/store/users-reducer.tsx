@@ -36,23 +36,15 @@ const initialState = {
     }],
     queryString: '',
     searchResult : [] as Array<UserType>,
-    listOfStates: [] as Array<string>
-    // selectedUser: {
-    //     id: '',
-    //     firstName: '',
-    //     lastName: '',
-    //     email: '',
-    //     phone: '',
-    //     adress: {
-    //         state: '',
-    //         streetAddress: '',
-    //         city: '',
-    //         zip: '',
-    //         description: '',
-    //     }
-    // }
+    portion: []  as Array<UserType>,
+    listOfStates: [] as Array<string>,
+    displayList: [] as Array<UserType>,
+    pagination : {
+        pageNumber: 1,
+        pageSize: 20
+    }
+
 }
-// const initialState = [] as Array<UserType>
 
 export type InitialStateType = typeof initialState;
 
@@ -93,7 +85,7 @@ export const usersReducer = (state: InitialStateType = initialState, action: Act
         case "SORT_BY_STATE_REVERSE":
             return {...state, users: [...state.users.sort((a, b) => (a.adress.state.localeCompare(b.adress.state)))].reverse()}
         case "SORT_BY_STATE_WITH_SELECT":
-            debugger
+
             return {...state, listOfStates: [...state.listOfStates], users: [...state.users.filter(u => u.adress.state === action.option)]}
 
         case "SORT_BY_SEARCH_STRING":
@@ -104,7 +96,7 @@ export const usersReducer = (state: InitialStateType = initialState, action: Act
         case "LIST_OF_STATES_CREATED":
             let copyState = {...state}
             let temp = [] as Array<string>
-            let stateList = copyState.users.map(u => u.adress.state)
+            let stateList = copyState.displayList.map(u => u.adress.state)
             for(let str of stateList) {
                 if (!temp.includes(str)){
                     temp.push(str)
@@ -112,8 +104,14 @@ export const usersReducer = (state: InitialStateType = initialState, action: Act
             }
             return {...copyState, listOfStates: temp}
 
-        // case "RESET_SEARCH":
-        //     return {...state, users: [...state.users.sort((a, b) => (a.adress.state.localeCompare(b.adress.state)))].reverse()}
+        case "DISPLAY_LIST":
+            return {...state, displayList: [...state.users.map((u )=> {
+                  return  u
+                })]}
+
+
+        case "RESET_SEARCH":
+            return {...state, users: [...state.users.sort((a, b) => (a.adress.state.localeCompare(b.adress.state)))].reverse()}
 
         default:
             return state
@@ -138,6 +136,8 @@ type ActionsType = ReturnType<typeof setUsersAC>
                   | ReturnType<typeof sortBySearchString>
                   | ReturnType<typeof resetSearch>
                   | ReturnType<typeof listOfStatesCreated>
+                  | ReturnType<typeof onPageChanged>
+                  | ReturnType<typeof displayListCreated>
 
 export type ThunkType = ThunkAction<Promise<void>, RootStateType, unknown, ActionsType>
 
@@ -234,6 +234,18 @@ export const resetSearch = () => {
 export const listOfStatesCreated = () => {
     return {
         type: "LIST_OF_STATES_CREATED",
+    } as const
+}
+
+export const onPageChanged = (pageNumber: number) => {
+    return {
+        type: "ON_PAGE_CHANGED"
+    } as const
+}
+
+export const displayListCreated = () => {
+    return {
+        type: "DISPLAY_LIST"
     } as const
 }
 
