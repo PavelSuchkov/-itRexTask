@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/-itRexTask/static/css/main.5e30cacd.chunk.css",
+    "main.js": "/-itRexTask/static/js/main.f4fabe60.chunk.js",
+    "main.js.map": "/-itRexTask/static/js/main.f4fabe60.chunk.js.map",
+    "runtime-main.js": "/-itRexTask/static/js/runtime-main.eecbc17e.js",
+    "runtime-main.js.map": "/-itRexTask/static/js/runtime-main.eecbc17e.js.map",
+    "static/js/2.0cfc6b76.chunk.js": "/-itRexTask/static/js/2.0cfc6b76.chunk.js",
+    "static/js/2.0cfc6b76.chunk.js.map": "/-itRexTask/static/js/2.0cfc6b76.chunk.js.map",
+    "static/js/3.3c40a723.chunk.js": "/-itRexTask/static/js/3.3c40a723.chunk.js",
+    "static/js/3.3c40a723.chunk.js.map": "/-itRexTask/static/js/3.3c40a723.chunk.js.map",
+    "index.html": "/-itRexTask/index.html",
+    "static/css/main.5e30cacd.chunk.css.map": "/-itRexTask/static/css/main.5e30cacd.chunk.css.map",
+    "static/js/2.0cfc6b76.chunk.js.LICENSE.txt": "/-itRexTask/static/js/2.0cfc6b76.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.eecbc17e.js",
+    "static/js/2.0cfc6b76.chunk.js",
+    "static/css/main.5e30cacd.chunk.css",
+    "static/js/main.f4fabe60.chunk.js"
+  ]
+}
