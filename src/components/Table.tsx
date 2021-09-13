@@ -188,27 +188,6 @@ export const Table = () => {
                     <th><button className="btn" onClick={stateSort}>sort by State</button></th>
                 </tr>
 
-                {/* <div>
-            <input type="text" placeholder={'Search by name'} value={searchString}
-                   onChange={(e) => onChangeHandler(e)}/>
-            <button onClick={searchButtonClick}>Search</button>
-            <button onClick={resetSearchButtonClick}>Reset Search</button>
-
-            <select name="states" onChange={(e) =>
-            {onSelectChangeHandler(e)}} >
-                <option value={'select the state'} >select the state</option>
-                {statesList.map(s => {
-                    return <option id={s} value={s}>{s}</option>
-                })}
-            </select>
-        </div> */}
-
-                {/* <TableHeader id={'ID'}
-                     firstName={'First Name'}
-                     lastName={'Last Name'}
-                     email={'Email'}
-                     phone={'Phone'}
-                     state={'State'}/> */}
                 {
                     users.map((item, index) => {
                         return <TableItem key={index}
@@ -222,7 +201,8 @@ export const Table = () => {
                         />
                     })}
                 {/* <Paginator totalItemsCount={32} pageSize={20} currentPage={1} onPageChanged={onPageChanged} /> */}
-                {!!selectedUser && <SelectedUser firstName={selectedUser.firstName}
+                {!!selectedUser && <SelectedUser
+                    firstName={selectedUser.firstName}
                     lastName={selectedUser.lastName}
                     adress={selectedUser.adress} />}
             </table>
