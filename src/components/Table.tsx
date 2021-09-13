@@ -1,4 +1,4 @@
-import React, {ChangeEvent, FormEvent, useEffect, useState} from "react";
+import React, {ChangeEvent, useEffect, useState} from "react";
 import {
     listOfStatesCreated,
     requestUsers,
@@ -11,9 +11,11 @@ import {
     sortByName,
     sortByNameReverse,
     sortByPhone,
-    sortByPhoneReverse, sortBySearchString,
+    sortByPhoneReverse,
+    sortBySearchString,
     sortByState,
-    sortByStateReverse, sortByStateWithSelect,
+    sortByStateReverse,
+    sortByStateWithSelect,
     UserType
 } from "../store/users-reducer";
 import {useDispatch, useSelector} from "react-redux";
@@ -21,9 +23,7 @@ import {RootStateType} from "../store/store";
 import {TableItem} from "./TableItem";
 import {TableHeader} from "./TableHeader";
 import {SelectedUser} from "./SelectedUser";
-import {inspect} from "util";
 import styles from '../App.module.css'
-import ReactPaginate from "react-paginate";
 import {Paginator} from "./Paginator/Paginator";
 // import {v1} from "uuid"
 

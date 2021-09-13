@@ -1,4 +1,6 @@
 import {UserType} from "../store/users-reducer";
+import {inspect} from "util";
+import styles from '../App.module.css'
 
 type TableItemPropsType = {
     id: string
@@ -14,12 +16,12 @@ export const TableHeader = (props: TableItemPropsType) => {
 
     return (
         <tr>
-            <th className="btn" >{props.id}</th>
-            <th className="btn">{props.firstName}</th>
-            <th className="btn">{props.lastName}</th>
-            <th className="btn">{props.email}</th>
-            <th className="btn">{props.phone}</th>
-            <th className="btn">{props.state}</th>
+            <th className={styles.btn} >{props.id}</th>
+            <th className={styles.btn}>{props.firstName}</th>
+            <th className={styles.btn}>{props.lastName}</th>
+            <th className={styles.btn}>{props.email}</th>
+            <th className={styles.btn}>{props.phone}</th>
+            <th className={styles.btn}>{props.state}</th>
             <br/>
         </tr>
     )
