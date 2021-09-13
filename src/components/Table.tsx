@@ -1,5 +1,6 @@
-import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import React, {ChangeEvent, useEffect, useState} from "react";
 import {
+    displayListCreated,
     listOfStatesCreated,
     requestUsers,
     sortByEmail,
@@ -11,20 +12,20 @@ import {
     sortByName,
     sortByNameReverse,
     sortByPhone,
-    sortByPhoneReverse, sortBySearchString,
+    sortByPhoneReverse,
+    sortBySearchString,
     sortByState,
-    sortByStateReverse, sortByStateWithSelect,
+    sortByStateReverse,
+    sortByStateWithSelect,
     UserType
 } from "../store/users-reducer";
-import { useDispatch, useSelector } from "react-redux";
-import { RootStateType } from "../store/store";
-import { TableItem } from "./TableItem";
-import { TableHeader } from "./TableHeader";
-import { SelectedUser } from "./SelectedUser";
-import { inspect } from "util";
+import {useDispatch, useSelector} from "react-redux";
+import {RootStateType} from "../store/store";
+import {TableItem} from "./TableItem";
+import {TableHeader} from "./TableHeader";
+import {SelectedUser} from "./SelectedUser";
 import styles from '../App.module.css'
-import ReactPaginate from "react-paginate";
-import { Paginator } from "./Paginator/Paginator";
+import {Paginator} from "./Paginator/Paginator";
 // import {v1} from "uuid"
 import './Table.css';
 
@@ -34,6 +35,7 @@ export const Table = () => {
     const usersData = useSelector<RootStateType, Array<UserType>>(state => state.users.users);
     const searchResult = useSelector<RootStateType, Array<UserType>>(state => state.users.searchResult);
     const statesList = useSelector<RootStateType, Array<string>>(state => state.users.listOfStates);
+    const displayList = useSelector<RootStateType, Array<UserType>>(state => state.users.displayList);
     const dispatch = useDispatch();
 
     const [isSearchWorks, setIsSearchWorks] = useState(false);
@@ -43,14 +45,14 @@ export const Table = () => {
 
     useEffect(() => {
         dispatch(requestUsers());
-
     }, [])
 
 
     useEffect(() => {
         setUsers(usersData);
+        dispatch(displayListCreated());
         dispatch(listOfStatesCreated());
-    }, [usersData, dispatch])
+    }, [usersData])
 
     useEffect(() => {
         if (isSearchWorks) {
@@ -149,9 +151,12 @@ export const Table = () => {
         setIsSearchWorks(false);
         setSearchString('')
     }
+
+
     const onSelectChangeHandler = (e: ChangeEvent<HTMLSelectElement>) => {
-        debugger
-        dispatch(sortByStateWithSelect(e.currentTarget.value))
+
+        dispatch(sortByStateWithSelect(e.currentTarget.value));
+        setSelectedUser(null);
     }
     const onPageChanged = (pageNumber: number) => {
         console.log('123')
