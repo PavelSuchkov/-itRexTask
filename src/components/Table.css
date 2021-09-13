@@ -1,0 +1,66 @@
+.wrap {
+    min-height: 100vh;
+    padding:100px 20px;
+}
+.topBlock {
+    width: 70%;
+    margin-bottom: 50px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.search {
+    display: flex;
+    justify-content: center;
+}
+.input {   
+    width: 300px;
+    padding: 10px; 
+    margin-right: 50px;
+}
+
+.btnByInput {
+    background-color: transparent;
+    padding: 10px;
+    border: 1px solid black;
+}
+
+select {
+    display: inline-block;
+    padding: 10px 10px;
+    border-radius: 5px;
+}
+select:hover {
+    background-color:rgb(204, 204, 240);
+}
+
+
+
+table {
+    text-align: center;
+    border-collapse: collapse;
+    width: 70%;
+}
+table, th, td {
+    border: 1px solid black 
+}
+th, td {
+    padding: 10px 20px;
+}
+.btn {
+    position: relative;
+    border:none;
+    background-color: transparent;
+
+}
+.btn::after {
+    content:"";
+    display: block;
+    background-image: url(./../assets/images/arrowOFF.png);
+    width: 24px;
+    height: 24px;
+
+    position: absolute;
+    top: -3px;
+    right: -18px;
+}

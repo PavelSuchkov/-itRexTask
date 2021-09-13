@@ -1,4 +1,4 @@
-import React, {ChangeEvent, FormEvent, useEffect, useState} from "react";
+import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import {
     listOfStatesCreated,
     requestUsers,
@@ -16,16 +16,17 @@ import {
     sortByStateReverse, sortByStateWithSelect,
     UserType
 } from "../store/users-reducer";
-import {useDispatch, useSelector} from "react-redux";
-import {RootStateType} from "../store/store";
-import {TableItem} from "./TableItem";
-import {TableHeader} from "./TableHeader";
-import {SelectedUser} from "./SelectedUser";
-import {inspect} from "util";
+import { useDispatch, useSelector } from "react-redux";
+import { RootStateType } from "../store/store";
+import { TableItem } from "./TableItem";
+import { TableHeader } from "./TableHeader";
+import { SelectedUser } from "./SelectedUser";
+import { inspect } from "util";
 import styles from '../App.module.css'
 import ReactPaginate from "react-paginate";
-import {Paginator} from "./Paginator/Paginator";
+import { Paginator } from "./Paginator/Paginator";
 // import {v1} from "uuid"
+import './Table.css';
 
 
 export const Table = () => {
@@ -52,7 +53,7 @@ export const Table = () => {
     }, [usersData, dispatch])
 
     useEffect(() => {
-        if(isSearchWorks) {
+        if (isSearchWorks) {
             setUsers(searchResult)
         } else {
             setUsers(usersData)
@@ -155,17 +156,34 @@ export const Table = () => {
     const onPageChanged = (pageNumber: number) => {
         console.log('123')
     }
-    return <table className={styles.table}>
-        <div>
-            <button onClick={idSort}>sort by ID</button>
-            <button onClick={nameSort}>sort by Name</button>
-            <button onClick={lastNameSort}>sort by LasName</button>
-            <button onClick={emailSort}>sort by Email</button>
-            <button onClick={phoneSort}>sort by Phone</button>
-            <button onClick={stateSort}>sort by State</button>
-        </div>
+    return (
+        <div className="wrap">
+            <div className="topBlock">
+                <div className="search">
+                    <input className="input" type="text" placeholder={'Search by name'} value={searchString}
+                        onChange={(e) => onChangeHandler(e)} />
+                    <button className="btnByInput" onClick={searchButtonClick}>Search</button>
+                    <button className="btnByInput" onClick={resetSearchButtonClick}>Reset Search</button>
+                </div>
 
-        <div>
+                <select name="states" onChange={(e) => { onSelectChangeHandler(e) }} >
+                    <option value={'select the state'} >select the state</option>
+                    {statesList.map(s => {
+                        return <option id={s} value={s}>{s}</option>
+                    })}
+                </select>
+            </div>
+            <table className={styles.table}>
+                <tr>
+                    <th><button className="btn" onClick={idSort}>sort by ID</button></th>
+                    <th><button className="btn" onClick={nameSort}>sort by Name</button></th>
+                    <th><button className="btn" onClick={lastNameSort}>sort by LasName</button></th>
+                    <th><button className="btn" onClick={emailSort}>sort by Email</button></th>
+                    <th><button className="btn" onClick={phoneSort}>sort by Phone</button></th>
+                    <th><button className="btn" onClick={stateSort}>sort by State</button></th>
+                </tr>
+
+                {/* <div>
             <input type="text" placeholder={'Search by name'} value={searchString}
                    onChange={(e) => onChangeHandler(e)}/>
             <button onClick={searchButtonClick}>Search</button>
@@ -178,30 +196,32 @@ export const Table = () => {
                     return <option id={s} value={s}>{s}</option>
                 })}
             </select>
-        </div>
+        </div> */}
 
-        <TableHeader id={'ID'}
+                {/* <TableHeader id={'ID'}
                      firstName={'First Name'}
                      lastName={'Last Name'}
                      email={'Email'}
                      phone={'Phone'}
-                     state={'State'}/>
-        {
-            users.map((item, index) => {
-                return <TableItem key={index}
-                                  email={item.email}
-                                  id={item.id}
-                                  state={item.adress.state}
-                                  firstName={item.firstName}
-                                  lastName={item.lastName}
-                                  phone={item.phone}
-                                  onClick={() => clickHandler(item.id)}
-                />
-            })}
-        <Paginator totalItemsCount={32} pageSize={20} currentPage={1} onPageChanged={onPageChanged}/>
-        {!!selectedUser && <SelectedUser firstName={selectedUser.firstName}
-                                         lastName={selectedUser.lastName}
-                                         adress={selectedUser.adress}/>}
-
-    </table>
+                     state={'State'}/> */}
+                {
+                    users.map((item, index) => {
+                        return <TableItem key={index}
+                            email={item.email}
+                            id={item.id}
+                            state={item.adress.state}
+                            firstName={item.firstName}
+                            lastName={item.lastName}
+                            phone={item.phone}
+                            onClick={() => clickHandler(item.id)}
+                        />
+                    })}
+                {/* <Paginator totalItemsCount={32} pageSize={20} currentPage={1} onPageChanged={onPageChanged} /> */}
+                {!!selectedUser && <SelectedUser firstName={selectedUser.firstName}
+                    lastName={selectedUser.lastName}
+                    adress={selectedUser.adress} />}
+            </table>
+            <Paginator totalItemsCount={32} pageSize={20} currentPage={1} onPageChanged={onPageChanged} />
+        </div>
+    );
 }
