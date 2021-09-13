@@ -51,7 +51,7 @@ th, td {
     position: relative;
     border:none;
     background-color: transparent;
-
+    cursor: pointer;
 }
 .btn::after {
     content:"";
